@@ -21,8 +21,9 @@ class Search extends Component {
         this.props.onShelfChange(event.target.name, event.target.value)
     }
 
+
     render(){
-        const { books } = this.props
+        const { books } = this.state
         const { query } = this.state
         const showBooks = query==='' ? null : books.filter((eachBook)=>(
             eachBook.title.toLowerCase().includes(query.toLowerCase())
@@ -45,9 +46,10 @@ class Search extends Component {
                                 <div>
                                     <li key={each.id}><h2>{each.title}</h2></li>
                                     <p>{each.subtitle}</p>
+                                    {console.log(each.shelf)}
                                     <select
                                         name={each.id} 
-                                        defaultValue={each.shelf}
+                                        value={each.shelf}
                                         onChange={this.shelfChangeHandler}
                                     >
                                         <option value="currentlyReading">Currently Reading</option>

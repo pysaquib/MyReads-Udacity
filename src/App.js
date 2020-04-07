@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom';
 import Search from './Search';
 import BookShelf from './BookShelf';
 import * as BooksAPI from './Utils/BooksAPI';
+import 'antd/dist/antd.css';
 
 class App extends Component {
   constructor(){
@@ -30,15 +31,17 @@ class App extends Component {
     console.log("BOOK OBJect", book)
     BooksAPI.update(book, shelfStatus)
     .then((response)=>{
-      console.log(response)
-      this.setState({
-        currentlyReading : response.currentlyReading,
-        wantToRead : response.wantToRead,
-        read : response.read
-      }, ()=>(console.log(this.state.currentlyReading)))
+      if(response){
+        BooksAPI.getAll()
+        .then((booksArr)=>{
+          this.setState({
+            books : booksArr
+          })
+        })
+      }
     })
   }
-  
+
   render(){
     return(
       <div>
