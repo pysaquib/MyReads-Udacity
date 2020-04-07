@@ -14,7 +14,6 @@ class Search extends Component {
         this.setState({
             query : event.target.value
         })
-
     }
 
     shelfChangeHandler = (event) => {
