@@ -17,13 +17,13 @@ const BookShelf = (props) => {
     ))
     return(
         <div>
-            <Row className='rows'>
-                <Col lg={24} sm={24}>
+            <div className='rows'>
+                <div>
                     <h1 className="shelf-heading">Currently Reading</h1>
                     <ul>
                     {
                         shelf['currentlyReading'].map((book)=>(
-                            <div key={book.id}>
+                            <div>
                                 <div className="books" key={book.id}>
                                     {book.title}<br />
                                     By {book.authors}
@@ -42,15 +42,15 @@ const BookShelf = (props) => {
                         ))
                     }
                     </ul>                    
-                </Col>
-            </Row>
-            <Row className="rows">
-                <Col lg={24} sm={24}>
+                </div>
+            </div>
+            <div className="rows">
+                <div>
                     <h1 className="shelf-heading">Want</h1>
                     <ul>
                     {
                         shelf['wantToRead'].map((book)=>(
-                            <div key={book.id}>
+                            <div>
                                 <div className="books" key={book.id}>
                                     {book.title}<br />
                                     By {book.authors}
@@ -69,17 +69,17 @@ const BookShelf = (props) => {
                         ))
                     }
                     </ul>
-                </Col>
-            </Row>
-            <Row className="rows">
-                <Col lg={24} sm={24}>
+                </div>
+            </div>
+            <div className="rows">
+                <div>
                     <div className="shelf-heading">
                         <h1>Read</h1>
                     </div>
                     <ul>
                     {
                         shelf['read'].map((book)=>(
-                            <div key={book.id}>
+                            <div>
                                 <div className="books">
                                     {book.title}<br />
                                     By {book.authors}
@@ -98,8 +98,8 @@ const BookShelf = (props) => {
                         ))
                     }
                     </ul>
-                </Col>
-            </Row>
+                </div>
+            </div>
             <Link to='/search'>Search</Link>
         </div>
     )
