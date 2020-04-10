@@ -22,7 +22,7 @@ class Search extends Component {
 
 
     render(){
-        const { books } = this.state
+        const { books } = this.props
         const { query } = this.state
         const showBooks = query==='' ? null : books.filter((eachBook)=>(
             eachBook.title.toLowerCase().includes(query.toLowerCase())
@@ -45,7 +45,6 @@ class Search extends Component {
                                 <div>
                                     <li key={each.id}><h2>{each.title}</h2></li>
                                     <p>{each.subtitle}</p>
-                                    {console.log(each.shelf)}
                                     <select
                                         name={each.id} 
                                         value={each.shelf}

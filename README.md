@@ -1,5 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
+This is a Udacity's My-Reads web application, powered by ReactJS. This app keeps a track a books you've read, want to read or currently reading.
 ## Available Scripts
 
 In the project directory, you can run:

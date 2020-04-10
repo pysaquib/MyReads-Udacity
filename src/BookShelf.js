@@ -1,32 +1,64 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Row, Col, Card } from 'antd';
+import 'antd/dist/antd.css';
 
 
-class BookShelf extends Component {
+const BookShelf = (props) => {
 
-    shelfChangeHandler = (event) => {
-        this.props.onShelfChange(event.target.name, event.target.value)
+    const shelfChangeHandler = (event) => {
+        props.onShelfChange(event.target.name, event.target.value)
     }
 
-    render(){
-        const shelf={'currentlyReading' : [], 'wantToRead' : [], 'read' : []}
-        const { books } = this.props
-        books.forEach((book)=>(
-            shelf[book.shelf].push(book)
-        ))
-        return(
-            <div>
-                <div>
-                    <h1>Currently Reading</h1>
+    const shelf={'currentlyReading' : [], 'wantToRead' : [], 'read' : []}
+    const { books } = props
+    books.forEach((book)=>(
+        shelf[book.shelf].push(book)
+    ))
+    return(
+        <div>
+            <Row className='rows'>
+                <Col lg={24} sm={24}>
+                    <h1 className="shelf-heading">Currently Reading</h1>
                     <ul>
                     {
-                        shelf['currentlyReading'].map((each)=>(
-                            <div>
-                                <li key={each.id}>{each.title}</li>
+                        shelf['currentlyReading'].map((book)=>(
+                            <div key={book.id}>
+                                <div className="books" key={book.id}>
+                                    {book.title}<br />
+                                    By {book.authors}
+                                </div>
                                 <select
-                                    name={each.id}
-                                    defaultValue={each.shelf}
-                                    onChange={this.shelfChangeHandler}
+                                    name={book.id}
+                                    defaultValue={book.shelf}
+                                    onChange={shelfChangeHandler}
+                                >
+                                    <option value="currentlyReading">Currently Reading</option>
+                                    <option value="wantToRead">Want to Read</option>
+                                    <option value="read">Read</option>
+                                    <option value="none">None</option>
+                                </select>
+                            </div>
+                        ))
+                    }
+                    </ul>                    
+                </Col>
+            </Row>
+            <Row className="rows">
+                <Col lg={24} sm={24}>
+                    <h1 className="shelf-heading">Want</h1>
+                    <ul>
+                    {
+                        shelf['wantToRead'].map((book)=>(
+                            <div key={book.id}>
+                                <div className="books" key={book.id}>
+                                    {book.title}<br />
+                                    By {book.authors}
+                                </div>
+                                <select
+                                    name={book.id}
+                                    defaultValue={book.shelf}
+                                    onChange={shelfChangeHandler}
                                 >
                                     <option value="currentlyReading">Currently Reading</option>
                                     <option value="wantToRead">Want to Read</option>
@@ -37,18 +69,25 @@ class BookShelf extends Component {
                         ))
                     }
                     </ul>
-                </div>
-                <div>
-                    <h1>Want To Read</h1>
+                </Col>
+            </Row>
+            <Row className="rows">
+                <Col lg={24} sm={24}>
+                    <div className="shelf-heading">
+                        <h1>Read</h1>
+                    </div>
                     <ul>
                     {
-                        shelf['wantToRead'].map((each)=>(
-                            <div>
-                                <li key={each.id}>{each.title}</li>
+                        shelf['read'].map((book)=>(
+                            <div key={book.id}>
+                                <div className="books">
+                                    {book.title}<br />
+                                    By {book.authors}
+                                </div>
                                 <select
-                                    name={each.id}
-                                    defaultValue={each.shelf}
-                                    onChange={this.shelfChangeHandler}
+                                    name={book.id}
+                                    defaultValue={book.shelf}
+                                    onChange={shelfChangeHandler}
                                 >
                                     <option value="currentlyReading">Currently Reading</option>
                                     <option value="wantToRead">Want to Read</option>
@@ -56,38 +95,14 @@ class BookShelf extends Component {
                                     <option value="none">None</option>
                                 </select>
                             </div>
-
                         ))
                     }
                     </ul>
-                </div>
-                <div>
-                    <h1>Read</h1>
-                    <ul>
-                    {
-                        shelf['read'].map((each)=>(
-                            <div>
-                                <li key={each.id}>{each.title}</li>
-                                <select
-                                    name={each.id}
-                                    defaultValue={each.shelf}
-                                    onChange={this.shelfChangeHandler}
-                                >
-                                    <option value="currentlyReading">Currently Reading</option>
-                                    <option value="wantToRead">Want to Read</option>
-                                    <option value="read">Read</option>
-                                    <option value="none">None</option>
-                                </select>
-                            </div>
-
-                        ))
-                    }
-                    </ul>
-                </div>
-                <Link to='/search'>Search</Link>
-            </div>
-        )
-    }
+                </Col>
+            </Row>
+            <Link to='/search'>Search</Link>
+        </div>
+    )
 }
 
 export default BookShelf;
