@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Search from './Search';
 import BookShelf from './BookShelf';
 import * as BooksAPI from './Utils/BooksAPI';
@@ -31,6 +31,7 @@ class App extends Component {
             BooksAPI.update(book, shelfStatus)
             .then((response)=>{
                 if(response){
+                    console.log(response)
                     BooksAPI.getAll()
                     .then((booksArr)=>{
                         this.setState({
@@ -45,18 +46,20 @@ class App extends Component {
     render(){
         return(
             <div>
-                <Route exact path="/" render={()=>(
-                    <BookShelf
-                        books={this.state.books}
-                        onShelfChange={this.onShelfChange}
-                    />
-                )} />
-                <Route path="/search" render={()=>(
-                    <Search
-                        books={this.state.books}
-                        onShelfChange={this.onShelfChange}
-                    />
-                )} />
+                <Switch>
+                    <Route exact path="/" render={()=>(
+                        <BookShelf
+                            books={this.state.books}
+                            onShelfChange={this.onShelfChange}
+                        />
+                    )} />
+                    <Route path="/search" render={()=>(
+                        <Search
+                            books={this.state.books}
+                            onShelfChange={this.onShelfChange}
+                        />
+                    )} />
+                </Switch>
             </div>
         )
     }
