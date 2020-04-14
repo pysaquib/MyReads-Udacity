@@ -13,6 +13,8 @@ export const Books = (props) => {
                 {
                     props.shelfCategory.map((book)=>(
                         <div>
+                            <img src={book.imageLinks.thumbnail}>
+                            </img>
                             <div className="books" key={book.id}>
                                 {book.title}<br />
                                 By {book.authors}
