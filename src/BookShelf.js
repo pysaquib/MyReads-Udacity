@@ -37,15 +37,16 @@ export const Books = (props) => {
 }
 
 const BookShelf = (props) => {
-
+    console.log(props.books)
     const shelfChangeHandler = (event) => {
         props.onShelfChange(event.target.name, event.target.value)
     }
 
+
     const shelf={'currentlyReading' : [], 'wantToRead' : [], 'read' : []}
     const { books } = props
     books.forEach((book)=>(
-        shelf[book.shelf].push(book)
+        shelf[book.shelf] = shelf[book.shelf].concat(book)
     ))
 
     return(

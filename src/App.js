@@ -6,6 +6,7 @@ import * as BooksAPI from './Utils/BooksAPI';
 import 'antd/dist/antd.css';
 import './App.css';
 
+
 class App extends Component {
     constructor(){
         super()
@@ -26,18 +27,21 @@ class App extends Component {
         })
     }
 
+    findThatBook = (bookId, shelfStatus) => {
+        const foundBook = this.state.books.filter((b)=>b.id==bookId)
+        foundBook.shelf=shelfStatus
+        return foundBook
+    }
+ 
     onShelfChange = (book, shelfStatus) => {
+        console.log(this.findThatBook(book))
         if(shelfStatus!=='none'){
             BooksAPI.update(book, shelfStatus)
             .then((response)=>{
                 if(response){
-                    console.log(response)
-                    BooksAPI.getAll()
-                    .then((booksArr)=>{
-                        this.setState({
-                            books : booksArr
-                        })
-                    })
+                    this.setState(state => ({
+                        books: [...(state.books.filter(b => b.id !== book)), this.findThatBook(book, shelfStatus)]
+                    }))
                 }
             })
         }
