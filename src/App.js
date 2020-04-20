@@ -28,13 +28,12 @@ class App extends Component {
     }
 
     findThatBook = (bookId, shelfStatus) => {
-        const foundBook = this.state.books.filter((b)=>b.id==bookId)
-        foundBook.shelf=shelfStatus
-        return foundBook
+        const foundBook = this.state.books.filter((b)=>b.id===bookId)
+        foundBook[0].shelf=shelfStatus
+        return foundBook[0]
     }
  
     onShelfChange = (book, shelfStatus) => {
-        console.log(this.findThatBook(book))
         if(shelfStatus!=='none'){
             BooksAPI.update(book, shelfStatus)
             .then((response)=>{
@@ -44,6 +43,11 @@ class App extends Component {
                     }))
                 }
             })
+        }
+        else{
+            this.setState(state => ({
+                books: [...(state.books.filter(b=> b.id!==book))]
+            }))
         }
     }
 

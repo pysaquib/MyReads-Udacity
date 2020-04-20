@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Row, Col, Card } from 'antd';
 import 'antd/dist/antd.css';
 
 
@@ -12,10 +11,10 @@ export const Books = (props) => {
                 <ul>
                 {
                     props.shelfCategory.map((book)=>(
-                        <div>
-                            <img src={book.imageLinks.thumbnail}>
+                        <div key={book.id}>
+                            <img src={book.imageLinks.thumbnail} alt={book.title}>
                             </img>
-                            <div className="books" key={book.id}>
+                            <div className="books">
                                 {book.title}<br />
                                 By {book.authors}
                             </div>
@@ -40,6 +39,7 @@ export const Books = (props) => {
 
 const BookShelf = (props) => {
     console.log(props.books)
+
     const shelfChangeHandler = (event) => {
         props.onShelfChange(event.target.name, event.target.value)
     }
